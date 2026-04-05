@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class ContainerCounter_Visual : MonoBehaviour
+public class ContainerCounterVisual : MonoBehaviour
 {
     private static readonly int OpenClose = Animator.StringToHash("OpenClose");
     

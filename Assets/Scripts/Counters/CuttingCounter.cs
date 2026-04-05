@@ -1,7 +1,11 @@
+using System;
 using UnityEngine;
 
-public class CuttingCounter : BaseCounter
+public class CuttingCounter : BaseCounter, IHasProgress
 {
+    public event EventHandler<IHasProgress.OnProgressChangedEventArgs> OnProgressChanged;
+    public event EventHandler OnCut;
+    
     [SerializeField] private CuttingRecipeSO[] _cuttingRecipeSOArray;
     
     private int _cuttingProgress;
@@ -14,11 +18,22 @@ public class CuttingCounter : BaseCounter
             {
                 player.GetKitchenObject().SetParent(this);
                 _cuttingProgress = 0;
+                
+                CuttingRecipeSO cuttingRecipe = GetCuttingRecipeSOWithInput(GetKitchenObject().KitchenObjectSO);
+                OnProgressChanged?.Invoke(this, new IHasProgress.OnProgressChangedEventArgs
+                {
+                    NormalizedProgress = (float)_cuttingProgress / cuttingRecipe.cuttingProgressMax
+                });
             }
         }
         else if (HasKitchenObject() && !player.HasKitchenObject())
         {
             GetKitchenObject().SetParent(player);
+            
+            OnProgressChanged?.Invoke(this, new IHasProgress.OnProgressChangedEventArgs
+            {
+                NormalizedProgress = 0f
+            });
         }
     }
 
@@ -28,8 +43,16 @@ public class CuttingCounter : BaseCounter
         {
             _cuttingProgress++;
             
-            CuttingRecipeSO cuttingRecipe = GetCuttingRecipeSOWithInput(GetKitchenObject().KitchenObjectSO);
-            if (_cuttingProgress >= cuttingRecipe.cuttingProgressMax)
+            OnCut?.Invoke(this, EventArgs.Empty);
+            
+            CuttingRecipeSO cuttingRecipeSO = GetCuttingRecipeSOWithInput(GetKitchenObject().KitchenObjectSO);
+            
+            OnProgressChanged?.Invoke(this, new IHasProgress.OnProgressChangedEventArgs
+            {
+                NormalizedProgress = (float)_cuttingProgress / cuttingRecipeSO.cuttingProgressMax
+            });
+            
+            if (_cuttingProgress >= cuttingRecipeSO.cuttingProgressMax)
             {
                 KitchenObjectSO kitchenObjectSO = GetOutputKitchenObject(GetKitchenObject().KitchenObjectSO);
 

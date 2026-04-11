@@ -14,54 +14,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentVersion: 1.01
   subtype: kitchenchaos
-  lastShownTimestamp: 1775485332
+  lastShownTimestamp: 1775830990
   lastUpdateResponse:
     version: 1.01
     versionUrl: https://unitycodemonkey.com
-  checkedLastUpdateTimestamp: 1775485332
+  checkedLastUpdateTimestamp: 1775830990
   lastQOTDResponse:
-    questionId: 289
-    questionText: 'What is the possible error in this code:
-
-      <p>tickTimer +=
-      Time.deltaTime;</p>
-
-      <p>if (tickTimer &gt;= TICK_TIMER_MAX) {</p>
-
-      <p>&nbsp;
-      &nbsp; tickTimer -= TICK_TIMER_MAX;</p>
-
-      <p>&nbsp; &nbsp; tick++;</p>
-
-      <p>&nbsp;
-      &nbsp; OnTickEvent(this, EventArgs.Empty);</p>
-
-      <p>}</p>'
-    answerA: None
-    answerB: NullReferenceException
-    answerC: 2 ticks at once
-    answerD: 
+    questionId: 290
+    questionText: How many classes should your game have?
+    answerA: Less than 100
+    answerB: At least 100
+    answerC: As many as needed and no more
+    answerD: Just one
     answerE: 
-  lastQotdTimestamp: 1775485332
+  lastQotdTimestamp: 1775830990
   lastDynamicHeaderResponse:
     topImageUrl: https://codemonkeyexternal.blob.core.windows.net/external/Misc/gameDevPracticeLab_2.png
     topText: Weekly Game Mechanic Challenges to help you learn by DOING!
     topLink: practicelab
     bottomText: My 10+ Years of C# Knowledge in 1 Course!
     bottomLink: csharpcourse
-  lastDynamicHeaderTimestamp: 1775485332
+  lastDynamicHeaderTimestamp: 1775830990
   websiteLatestMessage:
     text: <a href="https://cmonkey.co/freecourses">Check out all my FREE courses!
       Click here!</a>
-  websiteLatestMessageTimestamp: 1775485332
+  websiteLatestMessageTimestamp: 1775830990
   websiteLatestVideos:
     videos:
+    - youTubeId: 1GzNFSVk63M
+      title: TOP 10 NEW Games, Made with Unity! (MARCH 2026)
+    - youTubeId: nL-_srwBYdU
+      title: Can you solve this Game Dev Challenge?
+    - youTubeId: 4NwOhpsx824
+      title: The 5 MUST KNOW trends for Game Development in 2026!
     - youTubeId: P29QMW07Yws
       title: BEST NEW Visual Assets to INSPIRE YOU! (MARCH 2026)
-    - youTubeId: x3ICfkTfoUM
-      title: I QUIT Unity! Notepad is my new Game Engine!
-    - youTubeId: 9HX48q7gbBw
-      title: What exactly is a SMALL game?
-    - youTubeId: a6Nv4k2Mqng
-      title: TOP 10 NEW Systems and Tools MARCH 2026! | Unity Asset Store
-  websiteLatestVideosTimestamp: 1775485332
+  websiteLatestVideosTimestamp: 1775830990

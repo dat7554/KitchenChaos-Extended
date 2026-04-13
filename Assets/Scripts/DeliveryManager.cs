@@ -18,8 +18,8 @@ public class DeliveryManager : MonoBehaviour
     private List<RecipeSO> waitingRecipeSOList;
     private float _spawnPlateTimer;
     private float _spawnPlateTimerMax = 4f;
-    private int waitingRecipeMax = 4;
-    
+    private int _waitingRecipeMax = 4;
+    private int _successRecipesAmount;
     
     private void Awake()
     {
@@ -39,7 +39,7 @@ public class DeliveryManager : MonoBehaviour
         {
             _spawnPlateTimer = _spawnPlateTimerMax;
 
-            if (waitingRecipeSOList.Count < waitingRecipeMax)
+            if (waitingRecipeSOList.Count < _waitingRecipeMax)
             {
                 RecipeSO waitingRecipeSO = recipeListSO.RecipeSOList[Random.Range(0, recipeListSO.RecipeSOList.Count)];
                 waitingRecipeSOList.Add(waitingRecipeSO);
@@ -79,6 +79,7 @@ public class DeliveryManager : MonoBehaviour
                 if (plateContentsMatchesRecipe)
                 {
                     Debug.Log("Player has matching recipe");
+                    _successRecipesAmount++;
                     waitingRecipeSOList.Remove(waitingRecipeSOList[i]);
                     
                     OnRecipeCompleted?.Invoke(this, EventArgs.Empty);
@@ -95,5 +96,10 @@ public class DeliveryManager : MonoBehaviour
     public List<RecipeSO> GetWaitingRecipeSOList()
     {
         return waitingRecipeSOList;
+    }
+
+    public int GetSuccessRecipesAmount()
+    {
+        return _successRecipesAmount;
     }
 }

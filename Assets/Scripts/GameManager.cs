@@ -1,0 +1,95 @@
+using System;
+using UnityEngine;
+
+public class GameManager : MonoBehaviour
+{
+    public static GameManager Instance { get; private set; }
+    
+    public event EventHandler OnStateChanged;
+    
+    public enum State
+    {
+        WaitingToStart,
+        CountDownToStart,
+        GamePlaying,
+        GameOver
+    }
+    
+    private State _state;
+    private float _waitingToStartTimer = 1f;
+    private float _countDownToStartTimer = 3f;
+    private float _gamePlayingTimer;
+    private float _gamePlayingTimerMax = 10f;
+
+    private void Awake()
+    {
+        if (Instance != null)
+        {
+            Debug.LogError("There is more than 1 instance of GameManager in your scene.");
+        }
+        Instance = this;
+        
+        _state = State.WaitingToStart;
+    }
+
+    private void Update()
+    {
+        switch (_state)
+        {
+            case State.WaitingToStart:
+                _waitingToStartTimer -= Time.deltaTime;
+                if (_waitingToStartTimer <= 0f)
+                {
+                    _state = State.CountDownToStart;
+                    OnStateChanged?.Invoke(this, EventArgs.Empty);
+                }
+                break;
+            case State.CountDownToStart:
+                _countDownToStartTimer -= Time.deltaTime;
+                if (_countDownToStartTimer <= 0f)
+                {
+                    _state = State.GamePlaying;
+                    _gamePlayingTimer = _gamePlayingTimerMax;
+                    OnStateChanged?.Invoke(this, EventArgs.Empty);
+                }
+                break;
+            case State.GamePlaying:
+                Debug.Log("Game Playing");
+                _gamePlayingTimer -= Time.deltaTime;
+                if (_gamePlayingTimer <= 0f)
+                {
+                    _state = State.GameOver;
+                    OnStateChanged?.Invoke(this, EventArgs.Empty);
+                }
+                break;
+            case State.GameOver:
+                Debug.Log("Game Over");
+                break;
+        }
+    }
+
+    public bool IsGamePlaying()
+    {
+        return _state == State.GamePlaying;
+    }
+
+    public bool IsCountDownToStartActive()
+    {
+        return _state == State.CountDownToStart;
+    }
+    
+    public bool IsGameOver()
+    {
+        return _state == State.GameOver;
+    }
+
+    public float GetCountDownToStartTimer()
+    {
+        return _countDownToStartTimer;
+    }
+
+    public float GetGamePlayingTimerNormalized()
+    {
+        return 1 - (_gamePlayingTimer / _gamePlayingTimerMax);
+    }
+}

@@ -67,7 +67,6 @@ public class GameManager : MonoBehaviour
                 }
                 break;
             case State.GamePlaying:
-                Debug.Log("Game Playing");
                 _gamePlayingTimer -= Time.deltaTime;
                 if (_gamePlayingTimer <= 0f)
                 {
@@ -76,7 +75,6 @@ public class GameManager : MonoBehaviour
                 }
                 break;
             case State.GameOver:
-                Debug.Log("Game Over");
                 break;
         }
     }

@@ -36,6 +36,8 @@ public class GameInput : MonoBehaviour
         _playerInputActions.Player.Interact.performed -= Interact_Performed;
         _playerInputActions.Player.InteractAlternate.performed -= InteractAlternate_Performed;
         _playerInputActions.Player.Pause.performed -= Pause_OnPerformed;
+        
+        _playerInputActions.Dispose();
     }
 
     public Vector2 GetMovementVectorNormalized()

@@ -127,6 +127,11 @@ public class StoveCounter : BaseCounter, IHasProgress
             });
         }
     }
+
+    public bool IsFried()
+    {
+        return _state == State.Fried;
+    }
     
     private bool HasRecipeWithInput(KitchenObjectSO inputKitchenObjectSO)
     {

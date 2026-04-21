@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FryingRecipeSO
   input: {fileID: 11400000, guid: 50f6c4c35d8453c4a8b67dbbeefad5a4, type: 2}
   output: {fileID: 11400000, guid: 6a8b5ede5746e8144b781b68bcd91779, type: 2}
-  fryingTimerMax: 3
+  fryingTimerMax: 5

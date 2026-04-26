@@ -9,10 +9,18 @@ public class ContainerCounter : BaseCounter
     
     public override void Interact(Player player)
     {
-        if (player.HasKitchenObject()) return;
+        bool canGrab = true;
         
-        KitchenObject.SpawnKitchenObject(kitchenObjectSO, player);
+        if (player.HasKitchenObject() && player.GetKitchenObject().TryGetPlate(out PlateKitchenObject plateKitchenObject))
+        {
+            canGrab = plateKitchenObject.TryAddIngredient(kitchenObjectSO);
+        }
+        else
+        {
+            KitchenObject.SpawnKitchenObject(kitchenObjectSO, player);
+        }
         
-        OnPlayGrabbedObject?.Invoke(this, EventArgs.Empty);
+        if (canGrab)
+           OnPlayGrabbedObject?.Invoke(this, EventArgs.Empty);
     }
 }

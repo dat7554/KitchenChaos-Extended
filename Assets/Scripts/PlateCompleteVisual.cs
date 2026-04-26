@@ -17,16 +17,15 @@ public class PlateCompleteVisual : MonoBehaviour
     private void Start()
     {
         plateKitchenObject.OnIngredientAdded += PlateKitchenObject_OnIngredientAdded;
-        
-        foreach (var kitchenObjectSOGameObject in kitchenObjectSOGameObjectList)
-        { 
-            kitchenObjectSOGameObject.gameObject.SetActive(false);
-        }
+        plateKitchenObject.OnAllIngredientsRemoved += PlateKitchenObject_OnAllIngredientsRemoved;
+
+        DeactivateAllIngredients();
     }
 
     private void OnDestroy()
     {
         plateKitchenObject.OnIngredientAdded -= PlateKitchenObject_OnIngredientAdded;
+        plateKitchenObject.OnAllIngredientsRemoved -= PlateKitchenObject_OnAllIngredientsRemoved;
     }
 
     private void PlateKitchenObject_OnIngredientAdded(object sender, PlateKitchenObject.OnIngredientAddedEventArgs e)
@@ -37,6 +36,19 @@ public class PlateCompleteVisual : MonoBehaviour
             {
                 kitchenObjectSOGameObject.gameObject.SetActive(true);
             }
+        }
+    }
+    
+    private void PlateKitchenObject_OnAllIngredientsRemoved(object sender, EventArgs e)
+    {
+        DeactivateAllIngredients();
+    }
+
+    private void DeactivateAllIngredients()
+    {
+        foreach (var kitchenObjectSOGameObject in kitchenObjectSOGameObjectList)
+        { 
+            kitchenObjectSOGameObject.gameObject.SetActive(false);
         }
     }
 }

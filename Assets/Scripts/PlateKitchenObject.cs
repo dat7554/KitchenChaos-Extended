@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PlateKitchenObject : KitchenObject
@@ -9,6 +10,8 @@ public class PlateKitchenObject : KitchenObject
     {
         public KitchenObjectSO kitchenObjectSO;
     }
+    
+    public event EventHandler OnAllIngredientsRemoved; 
     
     [SerializeField] private List<KitchenObjectSO> validKitchenObjectSOList;
     
@@ -29,6 +32,16 @@ public class PlateKitchenObject : KitchenObject
         _kitchenObjectSOList.Add(kitchenObjectSO);
         OnIngredientAdded?.Invoke(this, new OnIngredientAddedEventArgs { kitchenObjectSO = kitchenObjectSO });
         return true;
+    }
+
+    public void RemoveAllIngredients()
+    {
+        foreach (var kitchenObjectSO in _kitchenObjectSOList.ToList())
+        {
+            _kitchenObjectSOList.Remove(kitchenObjectSO);
+        }
+        
+        OnAllIngredientsRemoved?.Invoke(this, EventArgs.Empty);
     }
 
     public List<KitchenObjectSO> GetKitchenObjectSOList()

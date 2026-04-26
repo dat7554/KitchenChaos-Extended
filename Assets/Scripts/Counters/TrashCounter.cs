@@ -12,9 +12,16 @@ public class TrashCounter : BaseCounter
     
     public override void Interact(Player player)
     {
-        if (player.GetKitchenObject())
+        if (player.HasKitchenObject())
         {
-            player.GetKitchenObject().DestroySelf();
+            if (player.GetKitchenObject().TryGetPlate(out PlateKitchenObject plateKitchenObject))
+            {
+                plateKitchenObject.RemoveAllIngredients();
+            }
+            else
+            {
+                player.GetKitchenObject().DestroySelf();
+            }
             
             OnAnyObjectTrashed?.Invoke(this, EventArgs.Empty);
         }

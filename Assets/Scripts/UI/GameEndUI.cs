@@ -2,11 +2,19 @@ using System;
 using TMPro;
 using UnityEngine;
 
-public class GameOverUI : MonoBehaviour
+public class GameEndUI : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI recipesDeliveredText;
-    [SerializeField] private TextMeshProUGUI totalMoneyEarnedText;
+    private static readonly int Popup = Animator.StringToHash("Popup");
     
+    [SerializeField] private TextMeshProUGUI _gameEndText;
+    
+    private Animator _animator;
+
+    private void Awake()
+    {
+        _animator = GetComponent<Animator>();
+    }
+
     private void Start()
     {
         GameManager.Instance.OnStateChanged += GameManager_OnStateChanged;
@@ -18,15 +26,13 @@ public class GameOverUI : MonoBehaviour
     {
         GameManager.Instance.OnStateChanged -= GameManager_OnStateChanged;
     }
-
+    
     private void GameManager_OnStateChanged(object sender, EventArgs e)
     {
-        if (GameManager.Instance.IsGameOver())
+        if (GameManager.Instance.IsTimeExpired())
         {
-            recipesDeliveredText.text = DeliveryManager.Instance.GetSuccessRecipesAmount().ToString();
-            totalMoneyEarnedText.text = DeliveryManager.Instance.GetTotalMoneyEarned().ToString();
-            
             Show();
+            _animator.SetTrigger(Popup);
         }
         else
         {
@@ -36,11 +42,11 @@ public class GameOverUI : MonoBehaviour
 
     private void Show()
     {
-        gameObject.SetActive(true);
+        _gameEndText.gameObject.SetActive(true);
     }
 
     private void Hide()
     {
-        gameObject.SetActive(false);
+        _gameEndText.gameObject.SetActive(false);
     }
 }

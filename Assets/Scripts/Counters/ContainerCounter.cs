@@ -15,7 +15,7 @@ public class ContainerCounter : BaseCounter
         {
             canGrab = plateKitchenObject.TryAddIngredient(kitchenObjectSO);
         }
-        else
+        else if (!player.HasKitchenObject())
         {
             KitchenObject.SpawnKitchenObject(kitchenObjectSO, player);
         }

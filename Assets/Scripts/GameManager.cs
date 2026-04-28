@@ -14,13 +14,15 @@ public class GameManager : MonoBehaviour
         WaitingToStart,
         CountDownToStart,
         GamePlaying,
+        TimeExpired,
         GameOver
     }
     
     private State _state;
     private float _countDownToStartTimer = 3f;
     private float _gamePlayingTimer;
-    private float _gamePlayingTimerMax = 100f;
+    private float _gamePlayingTimerMax = 30f;  // TODO: Change to 100 when not testing
+    private float _timeExpiredTimer = 3f;
     private bool _isGamePaused;
 
     private void Awake()
@@ -65,6 +67,14 @@ public class GameManager : MonoBehaviour
                 _gamePlayingTimer -= Time.deltaTime;
                 if (_gamePlayingTimer <= 0f)
                 {
+                    _state = State.TimeExpired;
+                    OnStateChanged?.Invoke(this, EventArgs.Empty);
+                }
+                break;
+            case State.TimeExpired:
+                _timeExpiredTimer -= Time.deltaTime;
+                if (_timeExpiredTimer <= 0f)
+                {
                     _state = State.GameOver;
                     OnStateChanged?.Invoke(this, EventArgs.Empty);
                 }
@@ -82,6 +92,11 @@ public class GameManager : MonoBehaviour
     public bool IsCountDownToStartActive()
     {
         return _state == State.CountDownToStart;
+    }
+
+    public bool IsTimeExpired()
+    {
+        return _state == State.TimeExpired;
     }
     
     public bool IsGameOver()

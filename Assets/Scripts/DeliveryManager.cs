@@ -8,7 +8,11 @@ public class DeliveryManager : MonoBehaviour
     public static DeliveryManager Instance { get; private set; }
 
     public event EventHandler OnRecipeSpawned;
-    public event EventHandler OnRecipeCompleted;
+    public event EventHandler<OnRecipeCompletedEventArgs> OnRecipeCompleted;
+    public class OnRecipeCompletedEventArgs : EventArgs
+    {
+        public RecipeSO recipeSO;
+    } 
     public event EventHandler OnRecipeSuccess;
     public event EventHandler OnRecipeFailed;
     
@@ -20,6 +24,8 @@ public class DeliveryManager : MonoBehaviour
     private float _spawnPlateTimerMax = 4f;
     private int _waitingRecipeMax = 4;
     private int _successRecipesAmount;
+    private int _totalAttemptsAmount;
+    private int _totalMoneyEarned;
     
     private void Awake()
     {
@@ -51,13 +57,16 @@ public class DeliveryManager : MonoBehaviour
 
     public void DeliverRecipe(PlateKitchenObject plateKitchenObject)
     {
+        _totalAttemptsAmount++;
+        
         for (int i = 0; i < waitingRecipeSOList.Count; i++)
         {
-            if (waitingRecipeSOList[i].KitchenObjectSOList.Count == plateKitchenObject.GetKitchenObjectSOList().Count)
+            RecipeSO waitingRecipeSO = waitingRecipeSOList[i];
+            if (waitingRecipeSO.KitchenObjectSOList.Count == plateKitchenObject.GetKitchenObjectSOList().Count)
             {
                 bool plateContentsMatchesRecipe = true;
                 
-                foreach (var recipeKitchenObjectSO in waitingRecipeSOList[i].KitchenObjectSOList)
+                foreach (var recipeKitchenObjectSO in waitingRecipeSO.KitchenObjectSOList)
                 {
                     bool ingredientFound = false;
                     
@@ -78,12 +87,13 @@ public class DeliveryManager : MonoBehaviour
                 
                 if (plateContentsMatchesRecipe)
                 {
-                    Debug.Log("Player has matching recipe");
                     _successRecipesAmount++;
-                    waitingRecipeSOList.Remove(waitingRecipeSOList[i]);
+                    _totalMoneyEarned += waitingRecipeSO.value;
                     
-                    OnRecipeCompleted?.Invoke(this, EventArgs.Empty);
+                    OnRecipeCompleted?.Invoke(this, new OnRecipeCompletedEventArgs() { recipeSO = waitingRecipeSO });
                     OnRecipeSuccess?.Invoke(this, EventArgs.Empty);
+                    
+                    waitingRecipeSOList.Remove(waitingRecipeSO);
                     
                     return;
                 }
@@ -101,5 +111,15 @@ public class DeliveryManager : MonoBehaviour
     public int GetSuccessRecipesAmount()
     {
         return _successRecipesAmount;
+    }
+
+    public int GetTotalAttemptsAmount()
+    {
+        return _totalAttemptsAmount;
+    }
+
+    public int GetTotalMoneyEarned()
+    {
+        return _totalMoneyEarned;
     }
 }

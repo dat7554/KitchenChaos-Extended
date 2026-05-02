@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
     private State _state;
     private float _countDownToStartTimer = 3f;
     private float _gamePlayingTimer;
-    private float _gamePlayingTimerMax = 100f;  // TODO: Change to 100 when not testing
+    private float _gamePlayingTimerMax = 30f;  // TODO: Change to 100 when not testing
     private float _timeExpiredTimer = 3f;
     private bool _isGamePaused;
 
@@ -68,13 +68,15 @@ public class GameManager : MonoBehaviour
                 if (_gamePlayingTimer <= 0f)
                 {
                     _state = State.TimeExpired;
+                    Time.timeScale = 0f;
                     OnStateChanged?.Invoke(this, EventArgs.Empty);
                 }
                 break;
             case State.TimeExpired:
-                _timeExpiredTimer -= Time.deltaTime;
+                _timeExpiredTimer -= Time.unscaledDeltaTime;
                 if (_timeExpiredTimer <= 0f)
                 {
+                    Time.timeScale = 1f;
                     _state = State.GameOver;
                     OnStateChanged?.Invoke(this, EventArgs.Empty);
                 }
@@ -116,6 +118,8 @@ public class GameManager : MonoBehaviour
     
     public void TogglePauseGame()
     {
+        if (IsTimeExpired() || IsGameOver()) return;
+        
         if (_isGamePaused)
         {
             Time.timeScale = 1f;

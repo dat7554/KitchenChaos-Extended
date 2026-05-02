@@ -24,13 +24,13 @@ public class DeliveryResultUI : MonoBehaviour
 
     private void Start()
     {
-        DeliveryManager.Instance.OnOrderSuccess += DeliveryManagerOnOrderSuccess;
-        DeliveryManager.Instance.OnOrderFailed += DeliveryManagerOnOrderFailed;
+        DeliveryManager.Instance.OnOrderSuccess += DeliveryManager_OnOrderSuccess;
+        DeliveryManager.Instance.OnOrderFailed += DeliveryManager_OnOrderFailed;
         
         gameObject.SetActive(false);
     }
 
-    private void DeliveryManagerOnOrderSuccess(object sender, EventArgs e)
+    private void DeliveryManager_OnOrderSuccess(object sender, EventArgs e)
     {
         gameObject.SetActive(true);
         
@@ -41,7 +41,7 @@ public class DeliveryResultUI : MonoBehaviour
         _animator.SetTrigger(Popup);
     }
     
-    private void DeliveryManagerOnOrderFailed(object sender, EventArgs e)
+    private void DeliveryManager_OnOrderFailed(object sender, EventArgs e)
     {
         gameObject.SetActive(true);
         

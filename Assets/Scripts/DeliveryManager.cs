@@ -27,8 +27,9 @@ public class DeliveryManager : MonoBehaviour
     private float _spawnPlateTimerMax = 4f;
     private int _waitingOrderMax = 4;
     private int _successOrdersAmount;
-    private int _failOrdersAmount;
     private int _totalAttemptsAmount;
+    private int _moneyEarned;
+    private int _moneyLost;
     private int _totalMoneyEarned;
     
     private void Awake()
@@ -65,6 +66,7 @@ public class DeliveryManager : MonoBehaviour
             if (!PlateMatchesRecipe(plateKitchenObject, waitingOrder.GetRecipeSO())) continue;
             
             _successOrdersAmount++;
+            _moneyEarned += waitingOrder.GetRecipeSO().value;
             _totalMoneyEarned += waitingOrder.GetRecipeSO().value;
                     
             OnOrderCompleted?.Invoke(this, new OrderEventArgs() { order = waitingOrder });
@@ -74,7 +76,6 @@ public class DeliveryManager : MonoBehaviour
             return;
         }
 
-        _failOrdersAmount++;
         OnOrderFailed?.Invoke(this, EventArgs.Empty);
     }
 
@@ -83,14 +84,19 @@ public class DeliveryManager : MonoBehaviour
         return _successOrdersAmount;
     }
 
-    public int GetFailRecipesAmount()
-    {
-        return _failOrdersAmount;
-    }
-
     public int GetTotalAttemptsAmount()
     {
         return _totalAttemptsAmount;
+    }
+    
+    public int GetMoneyEarned()
+    {
+        return _moneyEarned;
+    }
+    
+    public int GetMoneyLost()
+    {
+        return _moneyLost;
     }
 
     public int GetTotalMoneyEarned()
@@ -145,7 +151,7 @@ public class DeliveryManager : MonoBehaviour
         Order order = sender as Order;
         if (order == null) return;
 
-        _failOrdersAmount++;
+        _moneyLost += order.GetRecipeSO().cost;
         _totalMoneyEarned = Mathf.Max(0, _totalMoneyEarned + order.GetRecipeSO().cost);
         
         OnOrderExpired?.Invoke(this, new OrderEventArgs() { order = order });

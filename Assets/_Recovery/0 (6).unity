@@ -1034,7 +1034,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameOverUI
   recipesDeliveredText: {fileID: 1383160906}
-  recipesFailedText: {fileID: 2077150413}
   totalMoneyEarnedText: {fileID: 372886709}
 --- !u!1 &157009091
 GameObject:

@@ -18,3 +18,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 95eb27b5813b96e4cb340be304060228, type: 2}
   recipeName: CheeseBurger
   value: 40
+  cost: -25
+  countdownMax: 60

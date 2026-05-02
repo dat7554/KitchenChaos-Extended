@@ -17,3 +17,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6a8b5ede5746e8144b781b68bcd91779, type: 2}
   recipeName: Burger
   value: 20
+  cost: -10
+  countdownMax: 45

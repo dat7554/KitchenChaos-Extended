@@ -20,3 +20,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a9c966e675a9b074087ca25ec22f6602, type: 2}
   recipeName: MEGABurger
   value: 80
+  cost: -50
+  countdownMax: 90

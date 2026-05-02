@@ -7,4 +7,6 @@ public class RecipeSO : ScriptableObject
     public List<KitchenObjectSO> KitchenObjectSOList;
     public string recipeName;
     public int value;
+    public int cost;
+    public int countdownMax;
 }

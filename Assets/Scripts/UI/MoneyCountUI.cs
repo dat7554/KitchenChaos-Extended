@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class MoneyCountUI : MonoBehaviour
 {
-    private static readonly int AddPopup = Animator.StringToHash("AddPopup");
+    private static readonly int AddPopupGreen = Animator.StringToHash("AddPopupGreen");
+    private static readonly int AddPopupRed = Animator.StringToHash("AddPopupRed");
     
     [SerializeField] private TextMeshProUGUI totalMoneyEarnedText;
     [SerializeField] private TextMeshProUGUI moneyAdjustmentText;
@@ -18,20 +19,28 @@ public class MoneyCountUI : MonoBehaviour
 
     private void Start()
     {
-        DeliveryManager.Instance.OnRecipeCompleted += DeliveryManager_OnRecipeCompleted;
+        DeliveryManager.Instance.OnOrderCompleted += DeliveryManager_OnOrderCompleted;
+        DeliveryManager.Instance.OnOrderExpired += DeliveryManager_OnOrderExpired;
         
         UpdateVisual();
     }
-    
+
     private void OnDestroy()
     {
-        DeliveryManager.Instance.OnRecipeCompleted -= DeliveryManager_OnRecipeCompleted;
+        DeliveryManager.Instance.OnOrderCompleted -= DeliveryManager_OnOrderCompleted;
+        DeliveryManager.Instance.OnOrderExpired -= DeliveryManager_OnOrderExpired;
     }
 
-    private void DeliveryManager_OnRecipeCompleted(object sender, DeliveryManager.OnRecipeCompletedEventArgs e)
+    private void DeliveryManager_OnOrderCompleted(object sender, DeliveryManager.OrderEventArgs e)
     {
         UpdateVisual();
-        ShowMoneyAdjustment(e.recipeSO.value);
+        ShowMoneyAdjustment(e.order.GetRecipeSO().value);
+    }
+    
+    private void DeliveryManager_OnOrderExpired(object sender, DeliveryManager.OrderEventArgs e)
+    {
+        UpdateVisual();
+        ShowMoneyAdjustment(e.order.GetRecipeSO().cost);
     }
 
     private void UpdateVisual()
@@ -39,9 +48,9 @@ public class MoneyCountUI : MonoBehaviour
         totalMoneyEarnedText.text = DeliveryManager.Instance.GetTotalMoneyEarned().ToString();
     }
 
-    private void ShowMoneyAdjustment(int value)
+    private void ShowMoneyAdjustment(int amount)
     {
-        moneyAdjustmentText.text = "+" + value;
-        _animator.SetTrigger(AddPopup);
+        moneyAdjustmentText.text = amount > 0 ? "+" + amount : amount.ToString();
+        _animator.SetTrigger(amount > 0 ? AddPopupGreen : AddPopupRed);
     }
 }

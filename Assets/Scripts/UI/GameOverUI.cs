@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameOverUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI recipesDeliveredText;
+    [SerializeField] private TextMeshProUGUI recipesFailedText;
     [SerializeField] private TextMeshProUGUI totalMoneyEarnedText;
     
     private void Start()
@@ -24,6 +25,7 @@ public class GameOverUI : MonoBehaviour
         if (GameManager.Instance.IsGameOver())
         {
             recipesDeliveredText.text = DeliveryManager.Instance.GetSuccessRecipesAmount().ToString();
+            recipesFailedText.text = DeliveryManager.Instance.GetFailRecipesAmount().ToString();
             totalMoneyEarnedText.text = DeliveryManager.Instance.GetTotalMoneyEarned().ToString();
             
             Show();

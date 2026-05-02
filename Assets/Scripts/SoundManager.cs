@@ -25,8 +25,8 @@ public class SoundManager : MonoBehaviour
     
     private void Start()
     {
-        DeliveryManager.Instance.OnRecipeSuccess += DeliveryManager_OnRecipeSuccess;
-        DeliveryManager.Instance.OnRecipeFailed += DeliveryManager_OnRecipeFailed;
+        DeliveryManager.Instance.OnOrderSuccess += DeliveryManagerOnOrderSuccess;
+        DeliveryManager.Instance.OnOrderFailed += DeliveryManagerOnOrderFailed;
         CuttingCounter.OnAnyCut += CuttingCounter_OnAnyCut;
         Player.Instance.OnPickupSomething += Player_OnPickupSomething;
         BaseCounter.OnAnyObjectPlacedHere += BaseCounter_OnAnyObjectPlacedHere;
@@ -35,20 +35,20 @@ public class SoundManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        DeliveryManager.Instance.OnRecipeSuccess -= DeliveryManager_OnRecipeSuccess;
-        DeliveryManager.Instance.OnRecipeFailed -= DeliveryManager_OnRecipeFailed;
+        DeliveryManager.Instance.OnOrderSuccess -= DeliveryManagerOnOrderSuccess;
+        DeliveryManager.Instance.OnOrderFailed -= DeliveryManagerOnOrderFailed;
         CuttingCounter.OnAnyCut -= CuttingCounter_OnAnyCut;
         Player.Instance.OnPickupSomething -= Player_OnPickupSomething;
         BaseCounter.OnAnyObjectPlacedHere -= BaseCounter_OnAnyObjectPlacedHere;
         TrashCounter.OnAnyObjectTrashed -= TrashCounter_OnAnyObjectTrashed;
     }
 
-    private void DeliveryManager_OnRecipeSuccess(object sender, EventArgs e)
+    private void DeliveryManagerOnOrderSuccess(object sender, EventArgs e)
     {
         PlaySound(audioClipRefsSO.deliverySuccess, DeliveryCounter.Instance.transform.position);
     }
     
-    private void DeliveryManager_OnRecipeFailed(object sender, EventArgs e)
+    private void DeliveryManagerOnOrderFailed(object sender, EventArgs e)
     {
         PlaySound(audioClipRefsSO.deliveryFail, DeliveryCounter.Instance.transform.position);
     }

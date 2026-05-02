@@ -4,50 +4,32 @@ using UnityEngine;
 public class DeliveryManagerUI : MonoBehaviour
 {
     [SerializeField] private Transform container;
-    [SerializeField] private Transform recipeTemplate;
+    [SerializeField] private Transform orderUI;
 
     private void Awake()
     {
-        recipeTemplate.gameObject.SetActive(false);
+        orderUI.gameObject.SetActive(false);
     }
 
     private void Start()
     {
-        DeliveryManager.Instance.OnRecipeSpawned += DeliveryManager_OnRecipeSpawned;
-        DeliveryManager.Instance.OnRecipeCompleted += DeliveryManager_OnRecipeCompleted;
-        
-        UpdateVisual();
+        DeliveryManager.Instance.OnOrderSpawned += DeliveryManagerOnOrderSpawned;
     }
 
     private void OnDestroy()
     {
-        DeliveryManager.Instance.OnRecipeSpawned -= DeliveryManager_OnRecipeSpawned;
-        DeliveryManager.Instance.OnRecipeCompleted -= DeliveryManager_OnRecipeCompleted;
+        DeliveryManager.Instance.OnOrderSpawned -= DeliveryManagerOnOrderSpawned;
     }
 
-    private void DeliveryManager_OnRecipeSpawned(object sender, EventArgs e)
+    private void DeliveryManagerOnOrderSpawned(object sender, DeliveryManager.OrderEventArgs e)
     {
-        UpdateVisual();
-    }
-
-    private void DeliveryManager_OnRecipeCompleted(object sender, EventArgs e)
-    {
-        UpdateVisual();
+        AddNewOrderUI(e.order);
     }
     
-    private void UpdateVisual()
+    private void AddNewOrderUI(Order order)
     {
-        foreach (Transform child in container)
-        {
-            if (child == recipeTemplate) continue; 
-            Destroy(child.gameObject);
-        }
-
-        foreach (var recipeSO in DeliveryManager.Instance.GetWaitingRecipeSOList())
-        {
-            Transform recipeTransform = Instantiate(recipeTemplate, container);
-            recipeTransform.gameObject.SetActive(true);
-            recipeTransform.GetComponent<DeliveryManagerSingleUI>().SetRecipeSO(recipeSO);
-        }
+        Transform recipeTransform = Instantiate(orderUI, container);
+        recipeTransform.gameObject.SetActive(true);
+        recipeTransform.GetComponent<OrderUI>().SetOrder(order);
     }
 }

@@ -17,3 +17,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a9c966e675a9b074087ca25ec22f6602, type: 2}
   recipeName: Salad
   value: 20
+  cost: -10
+  countdownMax: 30

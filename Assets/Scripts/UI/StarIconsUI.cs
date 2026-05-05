@@ -23,24 +23,14 @@ public class StarIconsUI : MonoBehaviour
         }
     }
 
-    private int CalculateStars() {
-        int totalAttemptsAmount = DeliveryManager.Instance.GetTotalAttemptsAmount();
-        int successRecipesAmount = DeliveryManager.Instance.GetSuccessRecipesAmount();
+    private int CalculateStars() 
+    {
         int totalMoneyEarned = DeliveryManager.Instance.GetTotalMoneyEarned();
-        
-        if (totalAttemptsAmount == 0) return 3; // TODO: Change to 0 when not testing
+        GameModeSO gameModeSO = GameModeSelector.GetGameModeSO();
 
-        float accuracy = successRecipesAmount / (float)totalAttemptsAmount;
-
-        bool threeStarGate = accuracy >= 0.85f && successRecipesAmount >= 5 && totalMoneyEarned >= 280;
-        bool twoStarGate   = accuracy >= 0.65f && successRecipesAmount >= 3 && totalMoneyEarned >= 120;
-        bool oneStarGate   = accuracy >= 0.40f && successRecipesAmount >= 1 && totalMoneyEarned >= 20;
-
-        Debug.Log("Accuracy: " + accuracy + "\nSuccess: " + successRecipesAmount + "\nMoney: " + totalMoneyEarned);
-        
-        if (threeStarGate) return 3;
-        if (twoStarGate)   return 2;
-        if (oneStarGate)   return 1;
+        if (totalMoneyEarned >= gameModeSO.threeStarThreshold) return 3;
+        if (totalMoneyEarned >= gameModeSO.twoStarThreshold) return 2;
+        if (totalMoneyEarned >= gameModeSO.oneStarThreshold)  return 1;
         return 0;
     }
 }

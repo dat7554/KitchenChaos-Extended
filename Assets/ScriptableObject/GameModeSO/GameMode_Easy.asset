@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ab019782dd83fd4bbd5b0c99c657d24, type: 3}
+  m_Name: GameMode_Easy
+  m_EditorClassIdentifier: Assembly-CSharp::GameModeSO
+  spawnOrderInterval: 8
+  maxOrders: 3
+  orderTimeMultiplier: 1.5
+  recipePool:
+  - recipeSO: {fileID: 11400000, guid: bb6b9565f1688744a9a71c2a220681e0, type: 2}
+    weight: 5
+  - recipeSO: {fileID: 11400000, guid: c656b3f2a974b7d459fcbbf10d314924, type: 2}
+    weight: 5
+  oneStarThreshold: 10
+  twoStarThreshold: 80
+  threeStarThreshold: 190

@@ -1,8 +1,11 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class MainMenuUI : MonoBehaviour
 {
+    public event EventHandler OnPlayButtonClicked;
+    
     [SerializeField] private Button playButton;
     [SerializeField] private Button quitButton;
 
@@ -10,7 +13,7 @@ public class MainMenuUI : MonoBehaviour
     {
         playButton.onClick.AddListener(() =>
         {
-            Loader.Load(Loader.Scene.GameScene);
+            OnPlayButtonClicked?.Invoke(this, EventArgs.Empty);
         });
         
         quitButton.onClick.AddListener(Application.Quit);

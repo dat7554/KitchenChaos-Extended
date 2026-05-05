@@ -9,11 +9,7 @@ public class Order : MonoBehaviour, IHasProgress
     
     private RecipeSO _recipeSO;
     private float _timer;
-
-    private void Start()
-    {
-        _timer = _recipeSO.countdownMax;
-    }
+    private float _maxTime;
 
     private void Update()
     {
@@ -23,7 +19,7 @@ public class Order : MonoBehaviour, IHasProgress
         
         OnProgressChanged?.Invoke(this, new IHasProgress.OnProgressChangedEventArgs
         {
-            NormalizedProgress = _timer / _recipeSO.countdownMax
+            NormalizedProgress = _timer / _maxTime
         });
         
         if (_timer <= 0)
@@ -37,10 +33,14 @@ public class Order : MonoBehaviour, IHasProgress
         return _recipeSO;
     }
 
-    public void SetRecipeSO(RecipeSO recipeSO)
+    public void SetRecipeSO(RecipeSO recipeSO, float timeMultiplier)
     {
         if (_recipeSO == null)
+        {
             _recipeSO = recipeSO;
+            _maxTime = _recipeSO.countdownMax * timeMultiplier;
+            _timer = _maxTime;
+        }
     }
 
     public void DestroySelf()

@@ -19,15 +19,10 @@ public class DeliveryManager : MonoBehaviour
         public Order order;
     } 
     
-    [SerializeField] private RecipeListSO recipeListSO;
-    
+    [SerializeField, Tooltip("Fallback default")] private GameModeSO gameModeSO;
     
     private List<Order> _waitingOrderList;
-    private float _spawnPlateTimer;
-    private float _spawnPlateTimerMax = 4f;
-    private int _waitingOrderMax = 4;
-    private int _successOrdersAmount;
-    private int _totalAttemptsAmount;
+    private float _spawnOrderTimer;
     private int _moneyEarned;
     private int _moneyLost;
     private int _totalMoneyEarned;
@@ -41,16 +36,24 @@ public class DeliveryManager : MonoBehaviour
         Instance = this;
         
         _waitingOrderList = new List<Order>();
+
+        // override with selected mode if one was chosen from the main menu
+        if (GameModeSelector.GetGameModeSO() != null)
+        {
+            gameModeSO = GameModeSelector.GetGameModeSO();
+        }
     }
 
     private void Update()
     {
-        _spawnPlateTimer -= Time.deltaTime;
-        if (_spawnPlateTimer <= 0f)
+        if (!GameManager.Instance.IsGamePlaying()) return;
+        
+        _spawnOrderTimer -= Time.deltaTime;
+        if (_spawnOrderTimer <= 0f)
         {
-            _spawnPlateTimer = _spawnPlateTimerMax;
+            _spawnOrderTimer = gameModeSO.spawnOrderInterval;
 
-            if (GameManager.Instance.IsGamePlaying() && _waitingOrderList.Count < _waitingOrderMax)
+            if (_waitingOrderList.Count < gameModeSO.maxOrders)
             {
                 SpawnOrder();
             }
@@ -59,13 +62,10 @@ public class DeliveryManager : MonoBehaviour
 
     public void DeliverRecipe(PlateKitchenObject plateKitchenObject)
     {
-        _totalAttemptsAmount++;
-        
         foreach (var waitingOrder in _waitingOrderList)
         {
             if (!PlateMatchesRecipe(plateKitchenObject, waitingOrder.GetRecipeSO())) continue;
             
-            _successOrdersAmount++;
             _moneyEarned += waitingOrder.GetRecipeSO().value;
             _totalMoneyEarned += waitingOrder.GetRecipeSO().value;
                     
@@ -77,16 +77,6 @@ public class DeliveryManager : MonoBehaviour
         }
 
         OnOrderFailed?.Invoke(this, EventArgs.Empty);
-    }
-
-    public int GetSuccessRecipesAmount()
-    {
-        return _successOrdersAmount;
-    }
-
-    public int GetTotalAttemptsAmount()
-    {
-        return _totalAttemptsAmount;
     }
     
     public int GetMoneyEarned()
@@ -106,10 +96,10 @@ public class DeliveryManager : MonoBehaviour
     
     private void SpawnOrder()
     {
-        RecipeSO waitingRecipeSO = recipeListSO.RecipeSOList[Random.Range(0, recipeListSO.RecipeSOList.Count)];
+        RecipeSO waitingRecipeSO = GetRandomRecipe();
                 
         Order order = Instantiate(orderPrefab, transform);
-        order.SetRecipeSO(waitingRecipeSO);
+        order.SetRecipeSO(waitingRecipeSO, gameModeSO.orderTimeMultiplier);
         order.OnExpired += Order_OnExpired;
                 
         _waitingOrderList.Add(order);
@@ -144,6 +134,30 @@ public class DeliveryManager : MonoBehaviour
         }
 
         return true;
+    }
+    
+    private RecipeSO GetRandomRecipe()
+    {
+        var pool = gameModeSO.recipePool;
+
+        // Measure the total line length
+        int totalWeight = 0;
+        foreach (var entry in pool)
+            totalWeight += entry.weight;
+
+        // Throw a dart randomly anywhere on the line
+        int roll = Random.Range(0, totalWeight);
+
+        // Walk the segments until find where the dart landed
+        int cumulative = 0;
+        foreach (var entry in pool)
+        {
+            cumulative += entry.weight; // extend the running boundary
+            if (roll < cumulative)      // dart is inside this segment
+                return entry.recipeSO;
+        }
+
+        return pool[0].recipeSO; // fallback
     }
     
     private void Order_OnExpired(object sender, EventArgs e)

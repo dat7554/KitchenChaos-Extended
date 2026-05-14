@@ -14,41 +14,40 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentVersion: 1.01
   subtype: kitchenchaos
-  lastShownTimestamp: 1777990741
+  lastShownTimestamp: 1778591943
   lastUpdateResponse:
     version: 1.01
     versionUrl: https://unitycodemonkey.com
-  checkedLastUpdateTimestamp: 1777990741
+  checkedLastUpdateTimestamp: 1778591943
   lastQOTDResponse:
-    questionId: 298
-    questionText: What is the main difference between the out and ref keywords? (behaviour
-      inside the function)
-    answerA: out doesn't need to be set; ref MUST be set
-    answerB: out MUST be set; ref doesn't need to be set
-    answerC: No difference
+    questionId: 301
+    questionText: What is JSON and what is it useful for?
+    answerA: JavaScript Over Node, programming pattern
+    answerB: JavaScript Object Notation, data format
+    answerC: Jumping-Signal Over Nonce, crypto concept
     answerD: 
     answerE: 
-  lastQotdTimestamp: 1777990741
+  lastQotdTimestamp: 1778591943
   lastDynamicHeaderResponse:
-    topImageUrl: https://codemonkeyexternal.blob.core.windows.net/external/Misc/codeMonkeyToolkit50Off.png
-    topText: My Toolkit is 50% OFF! 40+ Tools and Elements to help you make games
-      BETTER and FASTER!
-    topLink: toolkit
+    topImageUrl: https://codemonkeyexternal.blob.core.windows.net/external/Misc/gameDevPracticeLab_2.png
+    topText: Weekly Game Mechanic Challenges to help you learn by DOING!
+    topLink: practicelab
     bottomText: My 10+ Years of C# Knowledge in 1 Course!
     bottomLink: csharpcourse
-  lastDynamicHeaderTimestamp: 1777990741
+  lastDynamicHeaderTimestamp: 1778591943
   websiteLatestMessage:
     text: <a href="https://cmonkey.co/freecourses">Check out all my FREE courses!
       Click here!</a>
-  websiteLatestMessageTimestamp: 1777990741
+  websiteLatestMessageTimestamp: 1778591943
   websiteLatestVideos:
     videos:
-    - youTubeId: Hg5u-qEIoDo
-      title: What I DON'T want to happen to YOU!
-    - youTubeId: 2gP-2rQ3o_Q
-      title: This Tool FIXES your Unity Project!
-    - youTubeId: 1bLBKMQ9YwE
-      title: BEST NEW Visual Assets to INSPIRE YOU! (APRIL 2026)
-    - youTubeId: XB7b4EXfjgM
-      title: What do YOU consider SUCCESS?
-  websiteLatestVideosTimestamp: 1777990741
+    - youTubeId: pV-tmNmJFjY
+      title: Unity's AI Tools are GENUINELY useful!
+    - youTubeId: _7ACFqhnxTw
+      title: FREE Game Dev Mechanic Challenges! Traffic System and Keypad Access
+        (Learn by DOING!)
+    - youTubeId: 546J2n9Sn5o
+      title: The MOST AWESOME Unity Bundle is HERE! 94% OFF!
+    - youTubeId: _WB6Ui5XeH0
+      title: The 10 SECRETS to making BETTER games!
+  websiteLatestVideosTimestamp: 1778591943

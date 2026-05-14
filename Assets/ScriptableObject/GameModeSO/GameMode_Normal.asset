@@ -27,3 +27,5 @@ MonoBehaviour:
   oneStarThreshold: 20
   twoStarThreshold: 120
   threeStarThreshold: 280
+  difficultyKey: Normal
+  description: "The real lunch rush. \nFull menu, tighter deadlines."

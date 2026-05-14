@@ -23,3 +23,8 @@ MonoBehaviour:
   oneStarThreshold: 10
   twoStarThreshold: 80
   threeStarThreshold: 190
+  difficultyKey: Easy
+  description: 'A relaxed shift to learn the ropes.
+
+    Simple recipes, generous
+    timers.'

@@ -1,10 +1,13 @@
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class LevelSelectorUI : MonoBehaviour
 {
     [SerializeField] private MainMenuUI mainMenuUI;
+    [Space]
+    [SerializeField] private TextMeshProUGUI descriptionText;
     
     [Header("Buttons")]
     [SerializeField] private Button easyGameModeButton;
@@ -15,6 +18,9 @@ public class LevelSelectorUI : MonoBehaviour
     [SerializeField] private GameModeSO easyGameModeSO;
     [SerializeField] private GameModeSO normalGameModeSO;
     [SerializeField] private GameModeSO hardGameModeSO;
+
+    private GameModeButtonUI _hoveredButton;
+    private GameModeButtonUI _selectedButton;
     
     private void Awake()
     {
@@ -49,6 +55,30 @@ public class LevelSelectorUI : MonoBehaviour
         mainMenuUI.OnPlayButtonClicked -= MainMenuUI_OnPlayButtonClicked;
     }
 
+    public void OnButtonHovered(GameModeButtonUI button)
+    {
+        _hoveredButton = button;
+        UpdateDescription();
+    }
+    
+    public void OnButtonUnhovered(GameModeButtonUI button)
+    {
+        if (_hoveredButton == button) _hoveredButton = null;
+        UpdateDescription();
+    }
+    
+    public void OnButtonSelected(GameModeButtonUI button)
+    {
+        _selectedButton = button;
+        UpdateDescription();
+    }
+    
+    public void OnButtonDeselected(GameModeButtonUI button)
+    {
+        if (_selectedButton == button) _selectedButton = null;
+        UpdateDescription();
+    }
+
     private void MainMenuUI_OnPlayButtonClicked(object sender, EventArgs e)
     {
         Show();
@@ -62,5 +92,11 @@ public class LevelSelectorUI : MonoBehaviour
     private void Hide()
     {
         gameObject.SetActive(false);
+    }
+
+    private void UpdateDescription()
+    {
+        GameModeButtonUI activeButton = _hoveredButton ?? _selectedButton;
+        descriptionText.text = activeButton != null ? activeButton.GetGameModeSO().description : "";
     }
 }

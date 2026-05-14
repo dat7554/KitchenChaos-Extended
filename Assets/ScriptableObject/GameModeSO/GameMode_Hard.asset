@@ -27,3 +27,5 @@ MonoBehaviour:
   oneStarThreshold: 30
   twoStarThreshold: 150
   threeStarThreshold: 320
+  difficultyKey: Hard
+  description: "Chaos mode. \nEvery second counts and the orders never stop."

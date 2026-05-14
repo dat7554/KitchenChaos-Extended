@@ -10,7 +10,7 @@ public class StarIconsUI : MonoBehaviour
 
     private IEnumerator AnimateStars()
     {
-        int filledStars = CalculateStars();
+        int filledStars = CalculateStars(out _);
         int index = 0;
         foreach (Transform child in transform)
         {
@@ -23,14 +23,16 @@ public class StarIconsUI : MonoBehaviour
         }
     }
 
-    private int CalculateStars() 
+    public static int CalculateStars(out int nextStarMoney)
     {
         int totalMoneyEarned = DeliveryManager.Instance.GetTotalMoneyEarned();
         GameModeSO gameModeSO = GameModeSelector.GetGameModeSO();
 
-        if (totalMoneyEarned >= gameModeSO.threeStarThreshold) return 3;
-        if (totalMoneyEarned >= gameModeSO.twoStarThreshold) return 2;
-        if (totalMoneyEarned >= gameModeSO.oneStarThreshold)  return 1;
+        if (totalMoneyEarned >= gameModeSO.threeStarThreshold) { nextStarMoney = 0; return 3; }
+        if (totalMoneyEarned >= gameModeSO.twoStarThreshold)   { nextStarMoney = gameModeSO.threeStarThreshold; return 2; }
+        if (totalMoneyEarned >= gameModeSO.oneStarThreshold)   { nextStarMoney = gameModeSO.twoStarThreshold; return 1; }
+
+        nextStarMoney = gameModeSO.oneStarThreshold;
         return 0;
     }
 }

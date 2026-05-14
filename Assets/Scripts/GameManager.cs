@@ -111,6 +111,11 @@ public class GameManager : MonoBehaviour
         return _countDownToStartTimer;
     }
 
+    public float GetGamePlayingTimer()
+    {
+        return _gamePlayingTimer;
+    }
+
     public float GetGamePlayingTimerNormalized()
     {
         return 1 - (_gamePlayingTimer / _gamePlayingTimerMax);

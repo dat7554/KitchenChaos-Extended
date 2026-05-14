@@ -24,4 +24,8 @@ public class GameModeSO : ScriptableObject
     public int oneStarThreshold = 20;
     public int twoStarThreshold = 120;
     public int threeStarThreshold = 280;
+    
+    [Space]
+    public string difficultyKey;
+    [TextArea] public string description;
 }

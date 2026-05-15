@@ -101,14 +101,9 @@ public class SoundManager : MonoBehaviour
         AudioSource.PlayClipAtPoint(audioClip, position, volumeMultiplier * _volume);
     }
 
-    public void ChangeVolume()
+    public void SetVolume(float value)
     {
-        _volume += 0.1f;
-        if (_volume > 1f)
-        {
-            _volume = 0f;
-        }
-
+        _volume = value;
         PlayerPrefs.SetFloat(PlayerPrefs_SoundEffectsVolume, _volume);
         PlayerPrefs.Save();
     }

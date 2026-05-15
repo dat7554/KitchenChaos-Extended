@@ -27,19 +27,19 @@ public class LevelSelectorUI : MonoBehaviour
         easyGameModeButton.onClick.AddListener(() =>
         {
             GameModeSelector.SetGameModeSO(easyGameModeSO);
-            Loader.Load(Loader.Scene.GameScene);
+            SceneLoader.Instance.Load(SceneLoader.SceneEnum.GameScene_Easy);
         });
         
         normalGameModeButton.onClick.AddListener(() =>
         {
             GameModeSelector.SetGameModeSO(normalGameModeSO);
-            Loader.Load(Loader.Scene.GameScene);
+            SceneLoader.Instance.Load(SceneLoader.SceneEnum.GameScene_Normal);
         });
         
         hardGameModeButton.onClick.AddListener(() =>
         {
             GameModeSelector.SetGameModeSO(hardGameModeSO);
-            Loader.Load(Loader.Scene.GameScene);
+            SceneLoader.Instance.Load(SceneLoader.SceneEnum.GameScene_Hard);
         });
     }
 

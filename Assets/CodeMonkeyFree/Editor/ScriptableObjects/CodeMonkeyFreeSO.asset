@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentVersion: 1.01
   subtype: kitchenchaos
-  lastShownTimestamp: 1778591943
+  lastShownTimestamp: 1778827038
   lastUpdateResponse:
     version: 1.01
     versionUrl: https://unitycodemonkey.com
-  checkedLastUpdateTimestamp: 1778591943
+  checkedLastUpdateTimestamp: 1778827038
   lastQOTDResponse:
     questionId: 301
     questionText: What is JSON and what is it useful for?
@@ -27,20 +27,23 @@ MonoBehaviour:
     answerC: Jumping-Signal Over Nonce, crypto concept
     answerD: 
     answerE: 
-  lastQotdTimestamp: 1778591943
+  lastQotdTimestamp: 1778827038
   lastDynamicHeaderResponse:
-    topImageUrl: https://codemonkeyexternal.blob.core.windows.net/external/Misc/gameDevPracticeLab_2.png
-    topText: Weekly Game Mechanic Challenges to help you learn by DOING!
-    topLink: practicelab
-    bottomText: My 10+ Years of C# Knowledge in 1 Course!
-    bottomLink: csharpcourse
-  lastDynamicHeaderTimestamp: 1778591943
+    topImageUrl: https://codemonkeyexternal.blob.core.windows.net/external/Misc/unityBundleMay26MustHave.png
+    topText: The BEST Unity Bundle in ages! Includes my most recommended asset 94%
+      OFF!
+    topLink: assetstore
+    bottomText: Get 98% OFF on awesome REALISTIC HumbleBundle!
+    bottomLink: humblebundle
+  lastDynamicHeaderTimestamp: 1778827038
   websiteLatestMessage:
     text: <a href="https://cmonkey.co/freecourses">Check out all my FREE courses!
       Click here!</a>
-  websiteLatestMessageTimestamp: 1778591943
+  websiteLatestMessageTimestamp: 1778827038
   websiteLatestVideos:
     videos:
+    - youTubeId: Fb5d_46JfVI
+      title: What are Unity Templates?
     - youTubeId: pV-tmNmJFjY
       title: Unity's AI Tools are GENUINELY useful!
     - youTubeId: _7ACFqhnxTw
@@ -48,6 +51,4 @@ MonoBehaviour:
         (Learn by DOING!)
     - youTubeId: 546J2n9Sn5o
       title: The MOST AWESOME Unity Bundle is HERE! 94% OFF!
-    - youTubeId: _WB6Ui5XeH0
-      title: The 10 SECRETS to making BETTER games!
-  websiteLatestVideosTimestamp: 1778591943
+  websiteLatestVideosTimestamp: 1778827038

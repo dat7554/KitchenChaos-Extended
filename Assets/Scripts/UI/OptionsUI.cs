@@ -7,10 +7,8 @@ public class OptionsUI : MonoBehaviour
 {
     public static OptionsUI Instance { get; private set; }
     
-    [SerializeField] private Button soundEffectsButton;
-    [SerializeField] private Button musicButton;
-    [SerializeField] private TextMeshProUGUI soundEffectsText;
-    [SerializeField] private TextMeshProUGUI musicText;
+    [SerializeField] private Slider soundEffectsSlider;
+    [SerializeField] private Slider musicSlider;
     [SerializeField] private Button closeButton;
     [SerializeField] private Button moveUpButton;
     [SerializeField] private Button moveDownButton;
@@ -44,16 +42,14 @@ public class OptionsUI : MonoBehaviour
         }
         Instance = this;
         
-        soundEffectsButton.onClick.AddListener(() =>
+        soundEffectsSlider.onValueChanged.AddListener(value =>
         {
-            SoundManager.Instance.ChangeVolume();
-            UpdateVisual();
+            SoundManager.Instance.SetVolume(value);
         });
-        
-        musicButton.onClick.AddListener(() =>
+
+        musicSlider.onValueChanged.AddListener(value =>
         {
-            MusicManager.Instance.ChangeVolume();
-            UpdateVisual();
+            MusicManager.Instance.SetVolume(value);
         });
         
         closeButton.onClick.AddListener(() =>
@@ -95,7 +91,7 @@ public class OptionsUI : MonoBehaviour
         
         _onCloseButtonAction = onCloseButtonAction;
         
-        soundEffectsButton.Select();
+        closeButton.Select();
     }
 
     private void Hide()
@@ -105,16 +101,16 @@ public class OptionsUI : MonoBehaviour
 
     private void UpdateVisual()
     {
-        soundEffectsText.text      = "Sound Effects: " + Mathf.Round(SoundManager.Instance.GetVolume() * 10f);
-        musicText.text             = "Music: " + Mathf.Round(MusicManager.Instance.GetVolume() * 10f);
-
-        moveUpText.text            = GameInput.Instance.GetBindingText(GameInput.Binding.MoveUp);
-        moveDownText.text          = GameInput.Instance.GetBindingText(GameInput.Binding.MoveDown);
-        moveLeftText.text          = GameInput.Instance.GetBindingText(GameInput.Binding.MoveLeft);
-        moveRightText.text         = GameInput.Instance.GetBindingText(GameInput.Binding.MoveRight);
-        interactText.text          = GameInput.Instance.GetBindingText(GameInput.Binding.Interact);
-        interactAlternateText.text = GameInput.Instance.GetBindingText(GameInput.Binding.InteractAlternate);
-        pauseText.text             = GameInput.Instance.GetBindingText(GameInput.Binding.Pause);
+        soundEffectsSlider.value          = SoundManager.Instance.GetVolume();
+        musicSlider.value                 = MusicManager.Instance.GetVolume();
+        
+        moveUpText.text                   = GameInput.Instance.GetBindingText(GameInput.Binding.MoveUp);
+        moveDownText.text                 = GameInput.Instance.GetBindingText(GameInput.Binding.MoveDown);
+        moveLeftText.text                 = GameInput.Instance.GetBindingText(GameInput.Binding.MoveLeft);
+        moveRightText.text                = GameInput.Instance.GetBindingText(GameInput.Binding.MoveRight);
+        interactText.text                 = GameInput.Instance.GetBindingText(GameInput.Binding.Interact);
+        interactAlternateText.text        = GameInput.Instance.GetBindingText(GameInput.Binding.InteractAlternate);
+        pauseText.text                    = GameInput.Instance.GetBindingText(GameInput.Binding.Pause);
         gamepadInteractText.text          = GameInput.Instance.GetBindingText(GameInput.Binding.GamepadInteract);
         gamepadInteractAlternateText.text = GameInput.Instance.GetBindingText(GameInput.Binding.GamepadInteractAlternate);
         gamepadPauseText.text             = GameInput.Instance.GetBindingText(GameInput.Binding.GamepadPause);

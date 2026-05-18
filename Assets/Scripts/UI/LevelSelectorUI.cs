@@ -5,42 +5,35 @@ using UnityEngine.UI;
 
 public class LevelSelectorUI : MonoBehaviour
 {
+    public event EventHandler OnGameModeButtonClicked;
+ 
+    [Serializable]
+    private struct GameModeButton
+    {
+        public GameModeSO gameModeSO;
+        public Button button;
+    }
+    
     [SerializeField] private MainMenuUI mainMenuUI;
     [Space]
     [SerializeField] private TextMeshProUGUI descriptionText;
     
-    [Header("Buttons")]
-    [SerializeField] private Button easyGameModeButton;
-    [SerializeField] private Button normalGameModeButton;
-    [SerializeField] private Button hardGameModeButton;
-    
-    [Header("Game Modes")]
-    [SerializeField] private GameModeSO easyGameModeSO;
-    [SerializeField] private GameModeSO normalGameModeSO;
-    [SerializeField] private GameModeSO hardGameModeSO;
+    [SerializeField] private GameModeButton[] gameModeButtonList;
 
     private GameModeButtonUI _hoveredButton;
     private GameModeButtonUI _selectedButton;
     
     private void Awake()
     {
-        easyGameModeButton.onClick.AddListener(() =>
+        foreach (var gameModeButton in gameModeButtonList)
         {
-            GameModeSelector.SetGameModeSO(easyGameModeSO);
-            SceneLoader.Instance.Load(SceneLoader.SceneEnum.GameScene_Easy);
-        });
-        
-        normalGameModeButton.onClick.AddListener(() =>
-        {
-            GameModeSelector.SetGameModeSO(normalGameModeSO);
-            SceneLoader.Instance.Load(SceneLoader.SceneEnum.GameScene_Normal);
-        });
-        
-        hardGameModeButton.onClick.AddListener(() =>
-        {
-            GameModeSelector.SetGameModeSO(hardGameModeSO);
-            SceneLoader.Instance.Load(SceneLoader.SceneEnum.GameScene_Hard);
-        });
+            gameModeButton.button.onClick.AddListener(() =>
+            {
+                GameModeSelector.SetGameModeSO(gameModeButton.gameModeSO);
+                OnGameModeButtonClicked?.Invoke(this, EventArgs.Empty);
+                Hide();
+            });
+        }
     }
 
     private void Start()
@@ -79,20 +72,10 @@ public class LevelSelectorUI : MonoBehaviour
         UpdateDescription();
     }
 
-    private void MainMenuUI_OnPlayButtonClicked(object sender, EventArgs e)
-    {
-        Show();
-    }
+    private void MainMenuUI_OnPlayButtonClicked(object sender, EventArgs e) => Show();
 
-    private void Show()
-    {
-        gameObject.SetActive(true);
-    }
-
-    private void Hide()
-    {
-        gameObject.SetActive(false);
-    }
+    private void Show() => gameObject.SetActive(true);
+    private void Hide() => gameObject.SetActive(false);
 
     private void UpdateDescription()
     {

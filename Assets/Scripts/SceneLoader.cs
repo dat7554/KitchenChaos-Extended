@@ -9,7 +9,7 @@ public class SceneLoader : MonoBehaviour
     
     public enum SceneEnum
     {
-        PersistantScene,
+        PersistentScene,
         MainMenuScene,
         GameScene_Easy,
         GameScene_Normal,
@@ -95,12 +95,21 @@ public class SceneLoader : MonoBehaviour
         yield return null;
         
         loadingScreen.gameObject.SetActive(false);
+        
+        UpgradeManager.LogActiveUpgrade();
     }
     
     private IEnumerator LoadMainMenuSceneRoutine()
     {
         loadingText.text = "Closing Kitchen";
         loadingScreen.gameObject.SetActive(true);
+        
+        // save 0 budget for this difficulty - player didn't finish the run
+        string difficultyKey = GameModeSelector.GetGameModeSO()?.difficultyKey;
+        if (difficultyKey != null)
+            SaveManager.SaveBudget(difficultyKey, 0);
+
+        UpgradeManager.ResetUpgrades();
 
         Scene currentScene = SceneManager.GetActiveScene();
         

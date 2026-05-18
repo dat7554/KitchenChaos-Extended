@@ -14,20 +14,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentVersion: 1.01
   subtype: kitchenchaos
-  lastShownTimestamp: 1778827038
+  lastShownTimestamp: 1778921389
   lastUpdateResponse:
     version: 1.01
     versionUrl: https://unitycodemonkey.com
-  checkedLastUpdateTimestamp: 1778827038
+  checkedLastUpdateTimestamp: 1778921389
   lastQOTDResponse:
-    questionId: 301
-    questionText: What is JSON and what is it useful for?
-    answerA: JavaScript Over Node, programming pattern
-    answerB: JavaScript Object Notation, data format
-    answerC: Jumping-Signal Over Nonce, crypto concept
+    questionId: 302
+    questionText: 'Is this valid code?
+
+      <p>Color? myColor = null;</p>'
+    answerA: Yes
+    answerB: No, myColor is a struct and cannot be null
+    answerC: 
     answerD: 
     answerE: 
-  lastQotdTimestamp: 1778827038
+  lastQotdTimestamp: 1778921389
   lastDynamicHeaderResponse:
     topImageUrl: https://codemonkeyexternal.blob.core.windows.net/external/Misc/unityBundleMay26MustHave.png
     topText: The BEST Unity Bundle in ages! Includes my most recommended asset 94%
@@ -35,11 +37,11 @@ MonoBehaviour:
     topLink: assetstore
     bottomText: Get 98% OFF on awesome REALISTIC HumbleBundle!
     bottomLink: humblebundle
-  lastDynamicHeaderTimestamp: 1778827038
+  lastDynamicHeaderTimestamp: 1778921389
   websiteLatestMessage:
     text: <a href="https://cmonkey.co/freecourses">Check out all my FREE courses!
       Click here!</a>
-  websiteLatestMessageTimestamp: 1778827038
+  websiteLatestMessageTimestamp: 1778921389
   websiteLatestVideos:
     videos:
     - youTubeId: Fb5d_46JfVI
@@ -51,4 +53,4 @@ MonoBehaviour:
         (Learn by DOING!)
     - youTubeId: 546J2n9Sn5o
       title: The MOST AWESOME Unity Bundle is HERE! 94% OFF!
-  websiteLatestVideosTimestamp: 1778827038
+  websiteLatestVideosTimestamp: 1778921389

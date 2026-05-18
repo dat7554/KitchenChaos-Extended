@@ -12,6 +12,8 @@ public class GameModeSO : ScriptableObject
         [Range(1, 10)] public int weight;
     }
     
+    public SceneLoader.SceneEnum sceneEnum;
+    
     [Header("Spawn Pressure")]
     public float spawnOrderInterval = 4f;
     public int maxOrders = 4;

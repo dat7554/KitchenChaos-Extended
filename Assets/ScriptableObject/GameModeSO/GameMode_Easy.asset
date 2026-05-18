@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ab019782dd83fd4bbd5b0c99c657d24, type: 3}
   m_Name: GameMode_Easy
   m_EditorClassIdentifier: Assembly-CSharp::GameModeSO
+  sceneEnum: 2
   spawnOrderInterval: 8
   maxOrders: 3
   orderTimeMultiplier: 1.5

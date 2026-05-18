@@ -24,38 +24,40 @@ public class GameOverUI : MonoBehaviour
 
     private void GameManager_OnStateChanged(object sender, EventArgs e)
     {
-        if (GameManager.Instance.IsGameOver())
-        {
-            string difficultyKey = GameModeSelector.GetGameModeSO().difficultyKey;
-            int stars = StarIconsUI.CalculateStars(out int nextStarMoney);
-            
-            moneyEarnedText.text = DeliveryManager.Instance.GetMoneyEarned().ToString();
-            moneyLostText.text = Mathf.Abs(DeliveryManager.Instance.GetMoneyLost()).ToString();
-            totalMoneyEarnedText.text = DeliveryManager.Instance.GetTotalMoneyEarned().ToString();
-            recordText.text = SaveManager.GetBestScore(difficultyKey).ToString();
-            nextStarText.text = stars < 3 ? nextStarMoney.ToString() : "Max stars reached!";
-            
-            Show();
-            
-            SaveManager.SaveResult
-                (
-                    difficultyKey, 
-                    DeliveryManager.Instance.GetTotalMoneyEarned()
-                );
-        }
-        else
+        if (!GameManager.Instance.IsGameOver())
         {
             Hide();
+            return;
         }
+        
+        string difficultyKey = GameModeSelector.GetGameModeSO().difficultyKey;
+        int stars            = StarIconsUI.CalculateStars(out int nextStarMoney);
+        int moneyEarned      = DeliveryManager.Instance.GetMoneyEarned();
+        int totalMoneyEarned = DeliveryManager.Instance.GetTotalMoneyEarned();
+        
+        moneyEarnedText.text      = moneyEarned.ToString();
+        moneyLostText.text        = Mathf.Abs(DeliveryManager.Instance.GetMoneyLost()).ToString();
+        totalMoneyEarnedText.text = totalMoneyEarned.ToString();
+        recordText.text           = SaveManager.GetBestScore(difficultyKey).ToString();
+        nextStarText.text         = stars < 3 ? nextStarMoney.ToString() : "Max stars reached!";
+        
+        Show();
+        
+        SaveManager.SaveResult
+            (
+                difficultyKey, 
+                totalMoneyEarned
+            );
+        
+        SaveManager.SaveBudget
+            (
+                difficultyKey,
+                moneyEarned
+            );
+        
+        UpgradeManager.ResetUpgrades();
     }
 
-    private void Show()
-    {
-        gameObject.SetActive(true);
-    }
-
-    private void Hide()
-    {
-        gameObject.SetActive(false);
-    }
+    private void Show() => gameObject.SetActive(true);
+    private void Hide() => gameObject.SetActive(false);
 }

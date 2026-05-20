@@ -34,13 +34,13 @@ public class MoneyCountUI : MonoBehaviour
     private void DeliveryManager_OnOrderCompleted(object sender, DeliveryManager.OrderEventArgs e)
     {
         UpdateVisual();
-        ShowMoneyAdjustment(e.order.GetRecipeSO().value);
+        ShowMoneyAdjustment(e.valueChanged);
     }
     
     private void DeliveryManager_OnOrderExpired(object sender, DeliveryManager.OrderEventArgs e)
     {
         UpdateVisual();
-        ShowMoneyAdjustment(e.order.GetRecipeSO().cost);
+        ShowMoneyAdjustment(e.valueChanged);
     }
 
     private void UpdateVisual()

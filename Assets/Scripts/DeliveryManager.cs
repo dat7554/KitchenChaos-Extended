@@ -17,9 +17,12 @@ public class DeliveryManager : MonoBehaviour
     public class OrderEventArgs : EventArgs
     {
         public Order order;
+        public int valueChanged;
     } 
     
     [SerializeField, Tooltip("Fallback default")] private GameModeSO gameModeSO;
+    
+    private int MaxOrder => gameModeSO.maxOrders + UpgradeManager.GetBonusOrderSlots();
     
     private List<Order> _waitingOrderList;
     private float _spawnOrderTimer;
@@ -53,7 +56,7 @@ public class DeliveryManager : MonoBehaviour
         {
             _spawnOrderTimer = gameModeSO.spawnOrderInterval;
 
-            if (_waitingOrderList.Count < gameModeSO.maxOrders)
+            if (_waitingOrderList.Count < MaxOrder)
             {
                 SpawnOrder();
             }
@@ -66,10 +69,14 @@ public class DeliveryManager : MonoBehaviour
         {
             if (!PlateMatchesRecipe(plateKitchenObject, waitingOrder.GetRecipeSO())) continue;
             
-            _moneyEarned += waitingOrder.GetRecipeSO().value;
-            _totalMoneyEarned += waitingOrder.GetRecipeSO().value;
+            int baseValue = waitingOrder.GetRecipeSO().value;
+            int tip = UpgradeManager.GetTipBonus(baseValue);
+            int totalEarned = baseValue + tip;
+            
+            _moneyEarned += totalEarned;
+            _totalMoneyEarned += totalEarned;
                     
-            OnOrderCompleted?.Invoke(this, new OrderEventArgs() { order = waitingOrder });
+            OnOrderCompleted?.Invoke(this, new OrderEventArgs() { order = waitingOrder, valueChanged = totalEarned});
             OnOrderSuccess?.Invoke(this, EventArgs.Empty);
                     
             RemoveOrder(waitingOrder);
@@ -99,7 +106,7 @@ public class DeliveryManager : MonoBehaviour
         RecipeSO waitingRecipeSO = GetRandomRecipe();
                 
         Order order = Instantiate(orderPrefab, transform);
-        order.SetRecipeSO(waitingRecipeSO, gameModeSO.orderTimeMultiplier);
+        order.SetRecipeSO(waitingRecipeSO);
         order.OnExpired += Order_OnExpired;
                 
         _waitingOrderList.Add(order);
@@ -165,10 +172,11 @@ public class DeliveryManager : MonoBehaviour
         Order order = sender as Order;
         if (order == null) return;
 
-        _moneyLost += order.GetRecipeSO().cost;
-        _totalMoneyEarned = Mathf.Max(0, _totalMoneyEarned + order.GetRecipeSO().cost);
+        int cost = order.GetRecipeSO().cost;
+        _moneyLost += cost;
+        _totalMoneyEarned = Mathf.Max(0, _totalMoneyEarned + cost);
         
-        OnOrderExpired?.Invoke(this, new OrderEventArgs() { order = order });
+        OnOrderExpired?.Invoke(this, new OrderEventArgs() { order = order, valueChanged = cost });
         OnOrderFailed?.Invoke(this, EventArgs.Empty);
         
         RemoveOrder(order);

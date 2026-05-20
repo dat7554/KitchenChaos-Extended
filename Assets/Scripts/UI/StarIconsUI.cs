@@ -3,7 +3,9 @@ using UnityEngine;
 
 public class StarIconsUI : MonoBehaviour
 {
-    private void Start()
+    [SerializeField] private StarIconSingleUI[] starIconSingleUIList;
+    
+    public void StartAnimateStars()
     {
         StartCoroutine(AnimateStars());
     }
@@ -12,11 +14,11 @@ public class StarIconsUI : MonoBehaviour
     {
         int filledStars = CalculateStars(out _);
         int index = 0;
-        foreach (Transform child in transform)
+        foreach (StarIconSingleUI child in starIconSingleUIList)
         {
             if (index == filledStars) break;
             
-            child.GetComponent<StarIconSingleUI>().PlayFillAnimation();
+            child.PlayFillAnimation();
             
             yield return new WaitForSeconds(0.4f);
             index++;

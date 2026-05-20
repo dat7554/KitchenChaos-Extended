@@ -19,3 +19,8 @@ MonoBehaviour:
   easyCost: 50
   normalCost: 80
   hardCost: 130
+  upgradeType: 4
+  speedMultiplier: 1
+  timeMultiplier: 1
+  tipPercentage: 0.25
+  bonusOrderSlots: 0

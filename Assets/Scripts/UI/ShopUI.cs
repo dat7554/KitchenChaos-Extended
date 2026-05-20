@@ -51,7 +51,16 @@ public class ShopUI : MonoBehaviour
     {
         levelSelectorUI.OnGameModeButtonClicked += LevelSelectorUI_OnGameModeButtonClicked;
         
-        Hide();
+        if (SceneLoader.Instance.IsSkipToShopEnable)
+        {
+            LevelSelectorUI_OnGameModeButtonClicked(this, null);
+            RefreshShop();
+            Show();
+        }
+        else
+        {
+            Hide();
+        }
     }
 
     private void OnDestroy()

@@ -54,7 +54,9 @@ public class CuttingCounter : BaseCounter, IHasProgress
     {
         if (HasKitchenObject() && HasRecipeWithInput(GetKitchenObject().KitchenObjectSO))
         {
-            _cuttingProgress++;
+            // _cuttingProgress++;
+            int cuttingProgressAmount = Mathf.CeilToInt(1f / UpgradeManager.GetChoppingSpeedMultiplier());
+            _cuttingProgress += Mathf.Max(1, cuttingProgressAmount);
             
             OnAnyCut?.Invoke(this, EventArgs.Empty);
             OnCut?.Invoke(this, EventArgs.Empty);

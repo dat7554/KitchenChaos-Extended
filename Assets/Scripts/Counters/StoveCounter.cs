@@ -41,7 +41,8 @@ public class StoveCounter : BaseCounter, IHasProgress
                 case State.Idle:
                     break;
                 case State.Frying:
-                    _fryingTimer += Time.deltaTime;
+                    //_fryingTimer += Time.deltaTime;
+                    _fryingTimer += Time.deltaTime / UpgradeManager.GetCookingSpeedMultiplier();
                     
                     OnProgressChanged?.Invoke(this, new IHasProgress.OnProgressChangedEventArgs
                     {

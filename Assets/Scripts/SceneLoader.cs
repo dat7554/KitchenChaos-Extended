@@ -18,6 +18,8 @@ public class SceneLoader : MonoBehaviour
     
     [SerializeField] private Transform loadingScreen;
     [SerializeField] private TextMeshProUGUI loadingText;
+    
+    public bool IsSkipToShopEnable { get; private set; }
 
     private void Awake()
     {
@@ -35,6 +37,11 @@ public class SceneLoader : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public void SetSkipToShopEnable(bool enable)
+    {
+        IsSkipToShopEnable = enable;
     }
     
     public void Load(SceneEnum targetSceneEnum)
@@ -124,5 +131,6 @@ public class SceneLoader : MonoBehaviour
         yield return null;
         
         loadingScreen.gameObject.SetActive(false);
+        if (IsSkipToShopEnable) SetSkipToShopEnable(false);
     }
 }

@@ -33,12 +33,16 @@ public class Order : MonoBehaviour, IHasProgress
         return _recipeSO;
     }
 
-    public void SetRecipeSO(RecipeSO recipeSO, float timeMultiplier)
+    public void SetRecipeSO(RecipeSO recipeSO)
     {
         if (_recipeSO == null)
         {
             _recipeSO = recipeSO;
-            _maxTime = _recipeSO.countdownMax * timeMultiplier;
+            
+            float upgradeMultiplier = UpgradeManager.GetOrderTimeMultiplier();
+            float gameModeTimeMultiplier = GameModeSelector.GetGameModeSO().orderTimeMultiplier;
+            
+            _maxTime = recipeSO.countdownMax * gameModeTimeMultiplier * upgradeMultiplier;
             _timer = _maxTime;
         }
     }

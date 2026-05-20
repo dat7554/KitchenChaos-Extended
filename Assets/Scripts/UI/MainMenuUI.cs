@@ -14,10 +14,22 @@ public class MainMenuUI : MonoBehaviour
         playButton.onClick.AddListener(() =>
         {
             OnPlayButtonClicked?.Invoke(this, EventArgs.Empty);
+            Hide();
         });
         
         quitButton.onClick.AddListener(Application.Quit);
         
         Time.timeScale = 1f;
     }
+
+    private void Start()
+    {
+        if (SceneLoader.Instance.IsSkipToShopEnable)
+            Hide();
+        else
+            Show();
+    }
+
+    private void Show() => gameObject.SetActive(true);
+    private void Hide() => gameObject.SetActive(false);
 }

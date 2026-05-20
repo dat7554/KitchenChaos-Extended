@@ -2,7 +2,9 @@
 
 A 3D cooking game built in Unity, extended from the [KitchenChaos tutorial](https://www.youtube.com/watch?v=AmGSEH7QcDg) by Code Monkey.
 
-> **Play it here:** [[itch.io link](https://ndat7554.itch.io/kitchenchaos-extended)]
+> **Play it [here](https://ndat7554.itch.io/kitchenchaos-extended)**
+
+> Watch gameplay [demo](https://youtu.be/WLExOzDQFG4)
 
 ---
 
@@ -57,6 +59,21 @@ This project started as a tutorial follow-along. After completing it, I extended
 - **Engine:** Unity version 6000.3.10f1.
 - **Patterns used:** Singleton, Observer (C# events), ScriptableObject data architecture
 - **Persistence:** Unity PlayerPrefs
+---
+
+## 📸 Screenshots
+
+<p align="center">
+<img width="1482" height="831" alt="Screenshot 2026-05-20 142655" src="https://github.com/user-attachments/assets/ede7afb3-b6d1-482d-b099-7edd45d7cfce" />
+</p>
+
+<p align="center">
+<img width="1487" height="832" alt="Screenshot 2026-05-20 142724" src="https://github.com/user-attachments/assets/13862b49-44e2-45af-9101-d00347d54607" />
+</p>
+
+<p align="center">
+<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/8398b20e-d017-480f-af7e-5a4e4643459b" />
+</p>
 
 ---
 
@@ -66,6 +83,7 @@ This project started as a tutorial follow-along. After completing it, I extended
 - Designed and implemented multiple interconnected game systems including order management, difficulty scaling, an upgrade shop economy, and persistent save data
 - The difference between `Time.deltaTime` and `Time.unscaledDeltaTime` and when each matters
 - Using `PlayerPrefs` for simple cross-session persistence
+- Implementing `ScriptableObject` to hold gameplay data
 
 ---
 

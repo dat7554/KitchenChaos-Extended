@@ -57,8 +57,8 @@ This project started as a tutorial follow-along. After completing it, I extended
 ## Tech Stack
 
 - **Engine:** Unity version 6000.3.10f1.
-- **Patterns used:** Singleton, Observer (C# events), ScriptableObject data architecture
 - **Persistence:** Unity PlayerPrefs
+
 ---
 
 ## 📸 Screenshots
